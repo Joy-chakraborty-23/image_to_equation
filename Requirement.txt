@@ -1,0 +1,40 @@
+requirements.txt`
+
+Below is a **small but sufficient lock-file** for the project.  
+The versions are pinned to the latest stable releases that (a) are mutually compatible as of May 2025 and (b) work on both CPU-only and GPU machines.
+
+```
+# Core ML framework ────────────────
+# Use *one* of the three lines below, not all three.
+tensorflow==2.16.0           # full package (auto-detects GPU, Linux & Windows)
+# tensorflow-cpu==2.16.0      # lighter, if you want CPU-only
+# tensorflow-macos==2.16.0    # Apple-silicon build
+
+# Data loading (DIV2K via TFDS)
+tensorflow-datasets==4.9.4
+
+# Numerical & image helpers
+numpy==1.26.4
+pillow==10.3.0
+matplotlib==3.9.0
+```
+
+#### Why only these six lines?
+
+| Package | Purpose |
+|---------|---------|
+| **tensorflow** | training / fine-tuning and Keras model I/O |
+| **tensorflow-datasets** | one-liner access to DIV2K with automatic caching |
+| **numpy** | coordinate grid, exported equation, math ops |
+| **pillow** | reading & resizing user-supplied RGB images |
+| **matplotlib** | visualising the reconstructed image |
+
+No other runtime dependencies are needed; everything else used in the code (`argparse`, `pathlib`, `time`, etc.) is part of the Python ≥ 3.10 standard library.
+
+---
+
+#### Installation tip
+
+```bash
+python -m venv .venv && source .venv/bin/activate
+pip install -r requirements.txt            # or use pip-tools / poetry if you prefer
